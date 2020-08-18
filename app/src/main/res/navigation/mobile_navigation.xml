@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="org.anrdigital.ashesbuilder.ui.CardGridFragment"
-        android:label="CardGridFragment" >
+        android:label="@string/title_home">
         <action
             android:id="@+id/Home_to_fullscreenCardsFragment"
             app:destination="@id/navigation_fullscreen" />
