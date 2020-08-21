@@ -32,7 +32,7 @@ class CardCountImageAdapter(
         val viewHolder: CardViewHolder
         if (convertView == null) {
             convertView = LayoutInflater.from(context)
-                .inflate(R.layout.deck_view_image_layout, parent, false)
+                .inflate(R.layout.card_list_grid_item, parent, false)
             viewHolder = CardViewHolder()
             viewHolder.imgCard =
                 convertView.findViewById<View>(R.id.imgCard) as ImageView

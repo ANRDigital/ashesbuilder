@@ -11,17 +11,17 @@ import androidx.navigation.fragment.findNavController
 import org.anrdigital.ashesbuilder.R
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-class CardGridFragment : Fragment() {
+class CardListFragment : Fragment() {
 
     private val vm: CardListViewModel by sharedViewModel()
 
     companion object {
-        fun newInstance() = CardGridFragment()
+        fun newInstance() = CardListFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.card_list_grid, container, false)
+        val view = inflater.inflate(R.layout.card_list_items, container, false)
 
 //        activity?.title = viewModel.getDeckTitle()
 

@@ -45,7 +45,7 @@ class FullscreenCardsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_fullscreen_cards, container, false)
+        val view = inflater.inflate(R.layout.card_list_pager, container, false)
         val viewPager = view.findViewById<ViewPager2>(R.id.pager)
         this.viewAdapter = ImageViewPagerAdapter(vm.cardCounts, View.OnClickListener {
             //TODO: remove this try / catch when fullscreen is always in a navhost
