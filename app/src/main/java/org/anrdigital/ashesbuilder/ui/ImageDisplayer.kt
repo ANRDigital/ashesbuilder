@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
+import android.util.Log
 import android.widget.ImageView
 import org.anrdigital.ashesbuilder.game.Card
 import org.anrdigital.ashesbuilder.util.ImageDownloadUtil
@@ -22,14 +23,19 @@ class ImageDisplayer {
         mImageView = imageView
 
         // Get the image in a thread and display in the ImageView
-        val theImage =
-            if (small) getSmallImage(
-                context,
-                card.imageFileName
-            ) else getImage(
-                context,
-                card.imageFileName
-            )
+        var theImage: Bitmap? = null
+        //todo: don't rely on exceptions - rewrite to check if file exists (this used to return nulls in java).
+        try {
+            theImage = if (small)
+                getSmallImage(context, card.imageFileName)
+            else
+                getImage(context, card.imageFileName)
+        }
+        catch (e: java.lang.Exception){
+            Log.e(this.javaClass.simpleName, "Unable to read image file: ${card.imageFileName}")
+        }
+
+
         if (theImage != null) {
             imageView.setImageBitmap(theImage)
         } else {
