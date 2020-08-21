@@ -5,7 +5,7 @@ import org.anrdigital.ashesbuilder.data.CardRepository
 import org.anrdigital.ashesbuilder.game.Card
 import org.anrdigital.ashesbuilder.game.CardCount
 
-class FullScreenViewModel(private val cardRepository: CardRepository) : ViewModel() {
+class CardListViewModel(private val cardRepository: CardRepository) : ViewModel() {
     val cardCounts: List<CardCount>
             get(){return cardRepository.allCards
                 .sortedBy { card -> card.type }

@@ -13,7 +13,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class CardGridFragment : Fragment() {
 
-    private val vm: FullScreenViewModel by sharedViewModel()
+    private val vm: CardListViewModel by sharedViewModel()
 
     companion object {
         fun newInstance() = CardGridFragment()

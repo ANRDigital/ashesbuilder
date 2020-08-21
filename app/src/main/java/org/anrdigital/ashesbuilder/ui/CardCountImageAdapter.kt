@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import org.anrdigital.ashesbuilder.R
 import org.anrdigital.ashesbuilder.game.CardCount
+import org.anrdigital.ashesbuilder.util.ImageDisplayer
 
 /**
  * Created by sebast on 21/02/15.
@@ -46,7 +47,7 @@ class CardCountImageAdapter(
         // Set the image]
         val cc = getItem(position)
         val card = cc!!.card
-        org.anrdigital.ashesbuilder.ui.ImageDisplayer.fill(viewHolder.imgCard!!, card, context)
+        ImageDisplayer.fill(viewHolder.imgCard!!, card, context)
         if (cc.count > 0) viewHolder.lblAmount!!.text =
             cc.count.toString() else viewHolder.lblAmount!!.visibility = View.GONE
 

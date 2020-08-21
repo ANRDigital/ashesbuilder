@@ -1,4 +1,4 @@
-package org.anrdigital.ashesbuilder.ui
+package org.anrdigital.ashesbuilder.util
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -7,7 +7,6 @@ import android.os.AsyncTask
 import android.util.Log
 import android.widget.ImageView
 import org.anrdigital.ashesbuilder.game.Card
-import org.anrdigital.ashesbuilder.util.ImageDownloadUtil
 import java.io.File
 
 class ImageDisplayer {

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import org.anrdigital.ashesbuilder.R
 import org.anrdigital.ashesbuilder.game.CardCount
+import org.anrdigital.ashesbuilder.util.ImageDisplayer
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.lang.IllegalStateException
 
@@ -29,7 +30,7 @@ class FullscreenCardsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    val vm: FullScreenViewModel by sharedViewModel()
+    val vm: CardListViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
