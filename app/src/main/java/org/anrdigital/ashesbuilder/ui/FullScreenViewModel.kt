@@ -7,7 +7,9 @@ import org.anrdigital.ashesbuilder.game.CardCount
 
 class FullScreenViewModel(private val cardRepository: CardRepository) : ViewModel() {
     val cardCounts: List<CardCount>
-            get(){return cardRepository.allCards.map { card -> CardCount(card, 0) }}
+            get(){return cardRepository.allCards
+                .sortedBy { card -> card.type }
+                .map { card -> CardCount(card, 0) }}
 
     var size: Int = 0
         get() = this.cardCounts.size
