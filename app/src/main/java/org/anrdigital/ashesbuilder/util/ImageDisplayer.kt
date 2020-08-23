@@ -3,16 +3,21 @@ package org.anrdigital.ashesbuilder.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.util.Log
 import android.widget.ImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.anrdigital.ashesbuilder.game.Card
 import java.io.File
+import java.lang.Exception
+import java.net.URL
 
 class ImageDisplayer {
     private var mContext: Context? = null
     private var mImageView: ImageView? = null
-    fun fillImageWithCard(
+    fun fillImageViewWithCardImage(
         imageView: ImageView,
         card: Card,
         context: Context,
@@ -21,22 +26,20 @@ class ImageDisplayer {
         mContext = context
         mImageView = imageView
 
+        val imageFileName: String = if (small) card.smallImageFileName else card.imageFileName
+        val sourceUrl: URL = if (small) card.smallImageSrc else card.imageSrc
+
         // Get the image in a thread and display in the ImageView
-        var theImage: Bitmap? = null
-        //todo: don't rely on exceptions - rewrite to check if file exists (this used to return nulls in java).
-        try {
-            theImage = if (small)
-                getSmallImage(context, card.imageFileName)
-            else
-                getImage(context, card.imageFileName)
-        }
-        catch (e: java.lang.Exception){
-            Log.e(this.javaClass.simpleName, "Unable to read image file: ${card.imageFileName}")
-        }
+        var result: Bitmap? = null
+        if (File(context.cacheDir, imageFileName).exists())
+            try {
+                result = getImage(context, imageFileName)
+            } catch (e: Exception) {
+                Log.e(javaClass.simpleName, "Unable to read image file: $imageFileName")
+            }
 
-
-        if (theImage != null) {
-            imageView.setImageBitmap(theImage)
+        if (result != null) {
+            imageView.setImageBitmap(result)
         } else {
             // Remove the image prior to download
             imageView.setImageResource(
@@ -44,41 +47,29 @@ class ImageDisplayer {
                     .getIdentifier("card_back", "drawable", context.packageName)
             )
 
-            // Download
-            singleCardDownloader =
-                SingleCardDownloader()
-            singleCardDownloader!!.execute(
-                card
-            )
+            // coroutine download
+            val uiScope = CoroutineScope(Dispatchers.Main)
+            uiScope.launch {
+                fetchImage(card, sourceUrl, imageFileName)
+            }
         }
     }
 
-    inner class SingleCardDownloader :
-        AsyncTask<Card?, Void?, Bitmap?>() {
-        override fun doInBackground(vararg params: Card?): Bitmap? {
-            val card = params[0]
-            return try {
-                ImageDownloadUtil.downloadImageToCache(
-                    mContext!!,
-                    card?.imageSrc!!,
-                    card?.imageFileName
-                )
-            } catch (e: Exception) {
-                null
-            }
-        }
+    private suspend fun fetchImage(card: Card, source: URL, destination: String) {
+        withContext(Dispatchers.IO) {
+            val result =  ImageDownloadUtil.downloadImageToCache(
+                mContext!!,
+                source,
+                destination
+            )
 
-        override fun onPostExecute(result: Bitmap?) {
-            // Only display if still in the queue
-            if (!this.isCancelled) mImageView!!.setImageBitmap(result)
-            //mImageView.setVisibility(View.VISIBLE);
+            withContext(Dispatchers.Main){
+                mImageView!!.setImageBitmap(result)
+            }
         }
     }
 
     companion object {
-        private var singleCardDownloader: SingleCardDownloader? =
-            null
-
         fun fill(
             imageView: ImageView,
             card: Card?,
@@ -87,7 +78,7 @@ class ImageDisplayer {
             if (card == null) return
             val im =
                 ImageDisplayer()
-            im.fillImageWithCard(imageView, card, context, false)
+            im.fillImageViewWithCardImage(imageView, card, context, false)
         }
 
         fun fillSmall(
@@ -98,7 +89,7 @@ class ImageDisplayer {
             if (card == null) return
             val im =
                 ImageDisplayer()
-            im.fillImageWithCard(imageView, card, context, true)
+            im.fillImageViewWithCardImage(imageView, card, context, true)
         }
 
         fun getImage(context: Context, imageFileName: String?): Bitmap {

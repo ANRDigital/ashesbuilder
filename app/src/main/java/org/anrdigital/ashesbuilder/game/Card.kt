@@ -24,9 +24,19 @@ data class Card(
     // weight of the card - ??
     val weight: Int
 ) {
+    companion object {
+        const val imgUrlRoot = "https://ashes.live/images/cards/"
+    }
+
+    val smallImageFileName: String
+        get() = "$stub-slice.jpg"
+
     val imageFileName: String
         get() = "$stub.png"
-    val imageSrc: URL
-        get() = URL("https://ashes.live/images/cards/$imageFileName")
 
+    val imageSrc: URL
+        get() = URL("$imgUrlRoot$imageFileName")
+
+    val smallImageSrc: URL
+        get() = URL("$imgUrlRoot$smallImageFileName")
 }

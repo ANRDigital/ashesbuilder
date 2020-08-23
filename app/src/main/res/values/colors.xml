@@ -6,5 +6,6 @@
 
 
     <color name="white">#fafafa</color>
+    <color name="nearly_black">#222222</color>
 
 </resources>

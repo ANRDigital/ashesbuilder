@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:gravity="top">
+
+    <TextView
+        android:id="@+id/lblPlacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lblCardType"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/imgBullet"
+        android:text="location" />
+
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/imgImage"
+        android:text="Card Title"
+        android:textColor="@color/nearly_black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lblCardType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblTitle"
+        android:layout_alignParentTop="false"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@id/imgImage"
+        android:text="type" />
+
+    <TextView
+        android:id="@+id/lblCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="4dp"
+        android:textAlignment="viewEnd"
+        tools:text="C" />
+
+    <ImageView
+        android:id="@+id/imgImage"
+        android:layout_width="75dp"
+        android:layout_height="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/card_back" />
+
+    <TextView
+        android:id="@+id/lblText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblCardType"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/imgImage"
+        android:text="TextView\nb\nc\nd\ne\nf\ng"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imgBullet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lblCardType"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="7dp"
+        android:layout_toEndOf="@id/lblCardType"
+        app:srcCompat="@drawable/icon_diamond_bullet" />
+
+</RelativeLayout>

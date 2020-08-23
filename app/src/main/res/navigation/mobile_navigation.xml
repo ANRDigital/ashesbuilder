@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="org.anrdigital.ashesbuilder.ui.dashboard.DashboardFragment"
+        android:name="org.anrdigital.ashesbuilder.ui.CardListFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/card_list_items" />
 
     <fragment
         android:id="@+id/navigation_notifications"
