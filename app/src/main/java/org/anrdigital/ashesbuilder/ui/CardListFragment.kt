@@ -71,7 +71,7 @@ class CardListFragment : Fragment() {
             private var lblPlacement: TextView = itemView.findViewById(R.id.lblPlacement)
 
             fun setItem(cardCount: CardCount) {
-                var card = cardCount.card
+                val card = cardCount.card
                 lblTitle.text = card?.name!!
                 ImageDisplayer.fillSmall(cardImage, card, itemView.context)
                 if (card.text.isNotEmpty())
