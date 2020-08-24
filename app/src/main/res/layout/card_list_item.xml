@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    app:strokeColor="@color/border_grey"
+    app:strokeWidth="1dp"
+    android:layout_margin="4dp"
+    >
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
-    android:gravity="top">
-
-    <TextView
-        android:id="@+id/lblPlacement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/lblCardType"
-        android:layout_marginStart="6dp"
-        android:layout_toEndOf="@id/imgBullet"
-        android:text="location" />
+    android:gravity="top"
+    >
 
     <TextView
         android:id="@+id/lblTitle"
@@ -27,6 +25,25 @@
         android:textColor="@color/nearly_black"
         android:textSize="16sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgImage"
+        android:layout_width="66dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/card_back" />
+
+    <TextView
+        android:id="@+id/lblPlacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lblCardType"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@id/imgBullet"
+        android:text="location" />
 
     <TextView
         android:id="@+id/lblCardType"
@@ -51,15 +68,6 @@
         android:textAlignment="viewEnd"
         tools:text="C" />
 
-    <ImageView
-        android:id="@+id/imgImage"
-        android:layout_width="75dp"
-        android:layout_height="120dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:scaleType="fitStart"
-        android:src="@drawable/card_back" />
-
     <TextView
         android:id="@+id/lblText"
         android:layout_width="wrap_content"
@@ -82,3 +90,4 @@
         app:srcCompat="@drawable/icon_diamond_bullet" />
 
 </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
