@@ -31,13 +31,10 @@ class CardCountImageAdapter(
         var convertView = convertView
         val viewHolder: CardViewHolder
         if (convertView == null) {
-            convertView = LayoutInflater.from(context)
-                .inflate(R.layout.card_list_grid_item, parent, false)
+            convertView = LayoutInflater.from(context).inflate(R.layout.card_list_grid_item, parent, false)
             viewHolder = CardViewHolder()
-            viewHolder.imgCard =
-                convertView.findViewById<View>(R.id.imgCard) as ImageView
-            viewHolder.lblAmount =
-                convertView.findViewById<View>(R.id.lblAmount) as TextView
+            viewHolder.imgCard = convertView.findViewById<View>(R.id.imgCard) as ImageView
+            viewHolder.lblAmount = convertView.findViewById<View>(R.id.lblAmount) as TextView
             convertView.tag = viewHolder
         } else {
             viewHolder =
