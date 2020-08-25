@@ -1,17 +1,16 @@
 package org.anrdigital.ashesbuilder.ui
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.anrdigital.ashesbuilder.R
 import org.anrdigital.ashesbuilder.game.Card
 import org.anrdigital.ashesbuilder.game.CardCount
@@ -62,12 +61,20 @@ class CardListFragment : Fragment(){
     }
 
     private fun showCardDialog(card: Card) {
-        MaterialAlertDialogBuilder(requireContext()).apply{
+        SimpleImageAlertDialog(requireContext(), card).show()
+    }
+
+    private class SimpleImageAlertDialog (context: Context, card: Card) :
+        AlertDialog(context) {
+        init {
             val view = layoutInflater.inflate(R.layout.simple_image_dialog, null)
             val img: ImageView = view.findViewById(R.id.dialog_imageview)
             ImageDisplayer.fill(img, card, context)
-            this.setView(view)
-        }.show()
+            setView(view)
+            img.setOnClickListener(View.OnClickListener { // I want the dialog to close at this point
+                dismiss()
+            })
+        }
     }
 
     class CardListRecyclerViewAdapter(
@@ -115,7 +122,11 @@ class CardListFragment : Fragment(){
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.card_list_item, parent, false)
+            var view = LayoutInflater.from(parent.context).inflate(
+                R.layout.card_list_item,
+                parent,
+                false
+            )
 
             return CardViewHolder(view, context)
         }
