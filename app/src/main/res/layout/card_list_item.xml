@@ -7,43 +7,34 @@
     app:strokeWidth="1dp"
     android:layout_margin="4dp"
     >
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_margin="4dp"
     android:gravity="top"
     >
-
-    <TextView
-        android:id="@+id/lblTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@id/imgImage"
-        android:text="Card Title"
-        android:textColor="@color/nearly_black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imgImage"
         android:layout_width="66dp"
         android:layout_height="80dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitStart"
         android:src="@drawable/card_back" />
 
     <TextView
-        android:id="@+id/lblPlacement"
+        android:id="@+id/lblTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/lblCardType"
-        android:layout_marginStart="6dp"
-        android:layout_toEndOf="@id/imgBullet"
-        android:text="location" />
+        android:layout_marginStart="4dp"
+        app:layout_constraintTop_toTopOf="@+id/imgImage"
+        app:layout_constraintStart_toEndOf="@id/imgImage"
+        android:text="Card Title"
+        android:textColor="@color/nearly_black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lblCardType"
@@ -51,32 +42,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lblTitle"
         android:layout_alignParentTop="false"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@id/imgImage"
+        app:layout_constraintStart_toStartOf="@id/lblTitle"
+        app:layout_constraintTop_toBottomOf="@+id/lblTitle"
         android:text="type" />
-
-    <TextView
-        android:id="@+id/lblCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="4dp"
-        android:textAlignment="viewEnd"
-        tools:text="C" />
-
-    <TextView
-        android:id="@+id/lblText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lblCardType"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/imgImage"
-        android:text="TextView\nb\nc\nd\ne\nf\ng"
-        android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/imgBullet"
@@ -86,8 +55,38 @@
         android:layout_centerHorizontal="false"
         android:layout_marginStart="6dp"
         android:layout_marginTop="7dp"
-        android:layout_toEndOf="@id/lblCardType"
+        app:layout_constraintStart_toEndOf="@id/lblCardType"
+        app:layout_constraintTop_toTopOf="@+id/lblCardType"
         app:srcCompat="@drawable/icon_diamond_bullet" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/lblPlacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lblCardType"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@id/imgBullet"
+        app:layout_constraintTop_toTopOf="@+id/lblCardType"
+        android:text="location" />
+
+    <TextView
+        android:id="@+id/lblText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/lblCardType"
+        app:layout_constraintTop_toBottomOf="@id/lblCardType"
+        app:layout_constraintEnd_toStartOf="@id/lblCost"
+        android:text="TextView\nb\nc\nd\ne\nf\ng"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/lblCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="viewEnd"
+        tools:text="cost" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
