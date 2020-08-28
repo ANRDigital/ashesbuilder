@@ -1,16 +1,21 @@
 package org.anrdigital.ashesbuilder.util
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextUtils
 import android.text.style.ImageSpan
 import org.anrdigital.ashesbuilder.R
+import org.anrdigital.ashesbuilder.game.Card
 import java.util.*
+import kotlin.text.Typography.bullet
 
 
 object TextFormatter {
+    const val INEXHAUSTIBLE = "[[inexhaustible]]"
+    const val DIVIDER = "[[divider]]"
+
 //    fun FormatCardTitle(card: Card): String {
 //        val titleText: String
 //        val strUnique = if (card.isUniqueness()) "• " else ""
@@ -71,13 +76,17 @@ object TextFormatter {
         map["[[natural:power]]"] = R.drawable.natural_power
         map["[[sympathy:class]]"] = R.drawable.sympathy_class
         map["[[sympathy:power]]"] = R.drawable.sympathy_power
+        map[INEXHAUSTIBLE] = R.drawable.icon_inexhaustible
+        map[DIVIDER] = R.drawable.icon_diamond_bullet
+
 
         // replace all occurrences
+        //todo: probably don't need Html here - is there html in the card data? (ANR legacy)
         val span = SpannableString(Html.fromHtml(text.replace("\n", "<br />")))
         for (txt in map.keys) {
             var index = span.toString().toLowerCase().indexOf(txt)
             while (index >= 0) {
-                val imageSpan = ImageSpan(context, map[txt]!!, ImageSpan.ALIGN_BOTTOM)
+                val imageSpan = ImageSpan(context, map[txt]!!, ImageSpan.ALIGN_BASELINE)
                 imageSpan.drawable.setBounds(0, 0, 5, 5)
                 span.setSpan(
                     imageSpan,
@@ -89,6 +98,36 @@ object TextFormatter {
             }
         }
         return span
+    }
+
+    fun formatCardText(card: Card, context: Context): CharSequence {
+        var result: CharSequence = ""
+        if (card.text.isNotEmpty()) {
+            for ((i, t) in card.text.withIndex()) {
+                if (i > 0)
+                    result = TextUtils.concat(result, "\n")
+                //todo: remove null checks when gson not used
+                if (t.inexhaustible != null && t.inexhaustible)
+                    result = TextUtils.concat(result, getFormattedString(context, INEXHAUSTIBLE), ": ")
+                if(t.cost != null && t.cost.isNotEmpty())
+                {
+                    var textCost: CharSequence = ""
+                    for((i, tc) in t.cost.withIndex()){
+                        if (i > 0)
+                            textCost = TextUtils.concat(textCost, bullet.toString() ) // getFormattedString(context, DIVIDER))
+
+                        textCost = TextUtils.concat(textCost, getFormattedString(context, tc))
+                    }
+                    result = TextUtils.concat(result, textCost, ": ")
+                }
+                if (t.name != null && t.name.isNotEmpty())
+                    result = TextUtils.concat(result, t.name)
+                if (!(t.name != null && t.name.isNotEmpty()))
+                    result = TextUtils.concat(result, getFormattedString(context,  t.text))
+            }
+        }
+
+        return result
     }
 
 }

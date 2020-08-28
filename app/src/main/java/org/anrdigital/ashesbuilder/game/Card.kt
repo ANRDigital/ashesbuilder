@@ -26,10 +26,19 @@ data class Card(
 ) {
     companion object {
         const val imgUrlRoot = "https://ashes.live/images/cards/"
+        const val CONJURATION_TYPE = "Conjuration"
     }
 
+    val isConjuration: Boolean
+        get() = type.equals(CONJURATION_TYPE)
     val smallImageFileName: String
-        get() = "$stub-slice.jpg"
+        get() = "$stub.png"
+    //todo: decide if slices are worth the effort
+//    get() = if (stub.startsWith("summon-")) {
+//            val result = stub.substring(7)
+//
+//            "$result-slice.jpg"
+//        } else "$stub-slice.jpg"
 
     val imageFileName: String
         get() = "$stub.png"

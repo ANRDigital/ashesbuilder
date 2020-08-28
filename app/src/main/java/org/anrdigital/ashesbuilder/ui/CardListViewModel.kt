@@ -8,6 +8,7 @@ import org.anrdigital.ashesbuilder.game.CardCount
 class CardListViewModel(private val cardRepository: CardRepository) : ViewModel() {
     val cardCounts: List<CardCount>
             get(){return cardRepository.allCards
+                .filter { card -> !card.isConjuration }
                 .sortedBy { card -> card.type }
                 .map { card -> CardCount(card, 0) }}
 

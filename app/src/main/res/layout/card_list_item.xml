@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/imgImage"
-        android:layout_width="66dp"
+        android:layout_width="60dp"
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

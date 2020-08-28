@@ -15,6 +15,7 @@ import org.anrdigital.ashesbuilder.R
 import org.anrdigital.ashesbuilder.game.Card
 import org.anrdigital.ashesbuilder.game.CardCount
 import org.anrdigital.ashesbuilder.util.ImageDisplayer
+import org.anrdigital.ashesbuilder.util.TextFormatter
 import org.anrdigital.ashesbuilder.util.TextFormatter.getFormattedString
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -82,8 +83,8 @@ class CardListFragment : Fragment(){
         private val context: Context,
         private val listener: (CardCount) -> Unit
     ):
-        RecyclerView.Adapter<CardListRecyclerViewAdapter.CardViewHolder>() {
-        class CardViewHolder(itemView: View, val context: Context): RecyclerView.ViewHolder(itemView) {
+        RecyclerView.Adapter<CardListRecyclerViewAdapter.CardListViewHolder>() {
+        class CardListViewHolder(itemView: View, private val context: Context): RecyclerView.ViewHolder(itemView) {
             private lateinit var item: CardCount
             private var cardImage: ImageView = itemView.findViewById(R.id.imgImage)
             private var lblTitle: TextView = itemView.findViewById(R.id.lblTitle)
@@ -96,17 +97,16 @@ class CardListFragment : Fragment(){
                 item = cardCount
                 val card = cardCount.card
                 lblTitle.text = card?.name!!
-                ImageDisplayer.fillSmall(cardImage, card, itemView.context)
-                if (card.text.isNotEmpty())
-                    lblTextView.text = card.text[0].text
+                ImageDisplayer.fillSmall(cardImage, card, context)
+                lblTextView.text = ""
+                lblTextView.append(TextFormatter.formatCardText(card, context))
 
                 lblCost.text = ""
-                if (card.cost.isNotEmpty()) {
+                if (card.cost != null && card.cost.isNotEmpty()) {
                     for ((i, c) in card.cost.withIndex()) {
-                        if (i > 0)
-                            lblCost.append("\n")
 
                         lblCost.append(getFormattedString(context, c))
+                        lblCost.append("\n")
                     }
                 }
                 lblCardType.text = card.type
@@ -114,24 +114,17 @@ class CardListFragment : Fragment(){
             }
         }
 
-        interface IListItemListener {
-            fun onListItemClicked(cardCount: CardCount) {
-                TODO("Not yet implemented")
-            }
-
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardListViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(
                 R.layout.card_list_item,
                 parent,
                 false
             )
 
-            return CardViewHolder(view, context)
+            return CardListViewHolder(view, context)
         }
 
-        override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: CardListViewHolder, position: Int) {
             val item = cardCounts[position]
             holder.setItem(item)
             holder.itemView.setOnClickListener { listener(item) }
