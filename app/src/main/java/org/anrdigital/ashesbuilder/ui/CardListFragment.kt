@@ -111,15 +111,16 @@ class CardListFragment : Fragment(){
                 }
                 else ""
 
-                lblLife.text = if (card.life != null) {
-                    "Life: ${card.life}"
+                lblLife.text = if (card.life != null) "Life: ${card.life}" else ""
+
+                lblRecover.text = if (card.recover != null) {
+                    "Recover: ${card.recover}"
                 }
                 else if (card.spellboard != null){
                     "Spellboard: ${card.spellboard}"
                 }
                 else ""
-
-                lblRecover.text = if (card.recover != null) "Recover: ${card.recover}"  else ""
+                
                 lblCost.text = ""
                 if (card.cost != null && card.cost.isNotEmpty()) {
                     for ((i, c) in card.cost.withIndex()) {
