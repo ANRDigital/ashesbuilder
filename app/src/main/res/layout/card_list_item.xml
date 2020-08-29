@@ -80,6 +80,35 @@
         android:textSize="12sp" />
 
     <TextView
+        android:id="@+id/lblAttack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/lblText"
+        app:layout_constraintTop_toBottomOf="@id/lblText"
+        style="@style/AttackTextStyle"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/lblLife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@id/lblAttack"
+        app:layout_constraintTop_toTopOf="@id/lblAttack"
+        style="@style/LifeTextStyle"
+        android:text="Life +1" />
+
+    <TextView
+        android:id="@+id/lblRecover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@id/lblLife"
+        app:layout_constraintTop_toTopOf="@id/lblAttack"
+        style="@style/RecoverTextStyle"
+        android:text="" />
+
+    <TextView
         android:id="@+id/lblCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

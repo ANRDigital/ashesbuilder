@@ -92,15 +92,34 @@ class CardListFragment : Fragment(){
             private var lblCost: TextView = itemView.findViewById(R.id.lblCost)
             private var lblCardType: TextView = itemView.findViewById(R.id.lblCardType)
             private var lblPlacement: TextView = itemView.findViewById(R.id.lblPlacement)
+            private var lblAttack: TextView = itemView.findViewById(R.id.lblAttack)
+            private var lblLife: TextView = itemView.findViewById(R.id.lblLife)
+            private var lblRecover: TextView = itemView.findViewById(R.id.lblRecover)
 
             fun setItem(cardCount: CardCount) {
                 item = cardCount
                 val card = cardCount.card
                 lblTitle.text = card?.name!!
                 ImageDisplayer.fillSmall(cardImage, card, context)
-                lblTextView.text = ""
-                lblTextView.append(TextFormatter.formatCardText(card, context))
+                lblTextView.text = TextFormatter.formatCardText(card, context)
 
+                lblAttack.text = if (card.attack != null) {
+                    "Attack: ${card.attack}"
+                }
+                else if (card.battlefield != null){
+                    "Battlefield: ${card.battlefield}"
+                }
+                else ""
+
+                lblLife.text = if (card.life != null) {
+                    "Life: ${card.life}"
+                }
+                else if (card.spellboard != null){
+                    "Spellboard: ${card.spellboard}"
+                }
+                else ""
+
+                lblRecover.text = if (card.recover != null) "Recover: ${card.recover}"  else ""
                 lblCost.text = ""
                 if (card.cost != null && card.cost.isNotEmpty()) {
                     for ((i, c) in card.cost.withIndex()) {

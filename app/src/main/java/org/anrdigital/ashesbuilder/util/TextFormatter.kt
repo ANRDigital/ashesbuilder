@@ -122,7 +122,7 @@ object TextFormatter {
                 }
                 if (t.name != null && t.name.isNotEmpty())
                     result = TextUtils.concat(result, t.name)
-                if (!(t.name != null && t.name.isNotEmpty()))
+                else
                     result = TextUtils.concat(result, getFormattedString(context,  t.text))
             }
         }

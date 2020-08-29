@@ -7,4 +7,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AttributeTextStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="AttackTextStyle" parent="AttributeTextStyle">
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+    </style>
+    <style name="LifeTextStyle" parent="AttributeTextStyle">
+        <item name="android:textColor">@android:color/holo_green_dark</item>
+    </style>
+    <style name="RecoverTextStyle" parent="AttributeTextStyle">
+        <item name="android:textColor">@android:color/holo_blue_dark</item>
+    </style>
+
 </resources>

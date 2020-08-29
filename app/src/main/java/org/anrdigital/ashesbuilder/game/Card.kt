@@ -22,7 +22,13 @@ data class Card(
     // type of the card e.g ally, phoenixborn
     val type: String,
     // weight of the card - ??
-    val weight: Int
+    val weight: Int,
+    val attack: String?,
+    val life: String?,
+    val recover: String?,
+    val copies: Int?,
+    val battlefield: Int?,
+    val spellboard: Int?
 ) {
     companion object {
         const val imgUrlRoot = "https://ashes.live/images/cards/"
