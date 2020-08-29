@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.text.style.ImageSpan
 import org.anrdigital.ashesbuilder.R
 import org.anrdigital.ashesbuilder.game.Card
+import org.anrdigital.ashesbuilder.game.CardTextItem
 import java.util.*
 import kotlin.text.Typography.bullet
 
@@ -107,27 +108,59 @@ object TextFormatter {
                 if (i > 0)
                     result = TextUtils.concat(result, "\n")
                 //todo: remove null checks when gson not used
-                if (t.inexhaustible != null && t.inexhaustible)
-                    result = TextUtils.concat(result, getFormattedString(context, INEXHAUSTIBLE), ": ")
-                if(t.cost != null && t.cost.isNotEmpty())
-                {
-                    var textCost: CharSequence = ""
-                    for((i, tc) in t.cost.withIndex()){
-                        if (i > 0)
-                            textCost = TextUtils.concat(textCost, bullet.toString() ) // getFormattedString(context, DIVIDER))
-
-                        textCost = TextUtils.concat(textCost, getFormattedString(context, tc))
-                    }
-                    result = TextUtils.concat(result, textCost, ": ")
-                }
-                if (t.name != null && t.name.isNotEmpty())
-                    result = TextUtils.concat(result, t.name)
-                else
-                    result = TextUtils.concat(result, getFormattedString(context,  t.text))
+                result = TextUtils.concat(result, formatCardTextItem(t, context))
             }
         }
 
         return result
+    }
+
+    private fun formatCardTextItem(
+        t: CardTextItem,
+        context: Context
+    ): CharSequence {
+        val separator = ": "
+        var result: CharSequence = ""
+        val output = ArrayList<CharSequence>()
+        var named = false
+        if (t.inexhaustible != null && t.inexhaustible)
+            output.add(getFormattedString(context, INEXHAUSTIBLE))
+
+        if (t.name != null && t.name.isNotEmpty()) {
+            output.add(TextUtils.concat(result, t.name))
+            named = true
+        }
+
+        if (t.cost != null && t.cost.isNotEmpty()) {
+            output.add(formatCardTextItemCost(t, context))
+        }
+
+        if (!named)
+            output.add(getFormattedString(context, t.text))
+
+        for ((i, item) in output.withIndex()){
+            if (i > 0)
+                result = TextUtils.concat(result, separator)
+            result = TextUtils.concat(result, item)
+        }
+        return result
+    }
+
+    private fun formatCardTextItemCost(
+        t: CardTextItem,
+        context: Context
+    ): CharSequence {
+        var textCost: CharSequence = ""
+        for ((i, tc) in t.cost.withIndex()) {
+            if (i > 0)
+                textCost = TextUtils.concat(
+                    textCost,
+                    bullet.toString()
+                ) // getFormattedString(context, DIVIDER))
+
+            textCost = TextUtils.concat(textCost, getFormattedString(context, tc))
+        }
+        return textCost
     }
 
 }
